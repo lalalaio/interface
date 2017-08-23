@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types'
-import Post from '../components/post.jsx'
+import Post from './post.jsx'
 
-const PostList = (props) => {
-  const listItems = props.posts.map((post) =>
+const PostList = ({posts}) => {
+  const listItems = posts.map((post) =>
     <li key={post.uuid}>
       <Post post={post} />
     </li>

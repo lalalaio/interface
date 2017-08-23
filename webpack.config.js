@@ -38,9 +38,9 @@ module.exports = {
     path: path.resolve(__dirname, 'build')
   },
   plugins: [
-    new webpack.optimize.UglifyJsPlugin({
-      compress: { warnings: false }
-    }),
+    // new webpack.optimize.UglifyJsPlugin({
+    //   compress: { warnings: false }
+    // }),
     new ExtractTextPlugin("main.css"),
   ],
 }

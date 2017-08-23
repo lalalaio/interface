@@ -1,3 +1,36 @@
 ul.posts {
   list-style: none;
 }
+
+  ul.posts .post .bar {
+      margin-bottom: 5px;
+      display: inline-block;
+    }
+
+  ul.posts .post .bar .note {
+        border-bottom: 1px #eee solid;
+        display: inline-block;
+
+      }
+
+  ul.posts .post .bar .note .tone {
+          border-left: 1px #eee solid;
+          border-right: 1px #eee solid;
+          border-top: 1px #eee solid;
+          height: 5px;
+          width: 5px;
+        }
+
+  ul.posts .post .bar .note .tone.active {
+          background: #999;
+          border-left: 1px #999 solid;
+          border-right: 1px #999 solid;
+        }
+
+  ul.posts .post .bar .note .tone.active.start {
+          border-left: 1px #eee solid;
+        }
+
+  ul.posts .post .bar .note .tone.active.end {
+          border-right: 1px #eee solid;
+        }

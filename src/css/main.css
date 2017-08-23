@@ -1,3 +1,45 @@
+:root {
+  --toneBorder: #eee;
+  --toneSize: 5px;
+  --toneActive: #999;
+}
+
 ul.posts {
   list-style: none;
+
+  .post {
+
+    .bar {
+      margin-bottom: var(--toneSize);
+      display: inline-block;
+
+      .note {
+        border-bottom: 1px var(--toneBorder) solid;
+        display: inline-block;
+
+        .tone {
+          border-left: 1px var(--toneBorder) solid;
+          border-right: 1px var(--toneBorder) solid;
+          border-top: 1px var(--toneBorder) solid;
+          height: var(--toneSize);
+          width: var(--toneSize);
+        }
+
+        .tone.active {
+          background: var(--toneActive);
+          border-left: 1px var(--toneActive) solid;
+          border-right: 1px var(--toneActive) solid;
+        }
+
+        .tone.active.start {
+          border-left: 1px var(--toneBorder) solid;
+        }
+
+        .tone.active.end {
+          border-right: 1px var(--toneBorder) solid;
+        }
+
+      }
+    }
+  }
 }
