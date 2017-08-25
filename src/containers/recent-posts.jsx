@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import PostList from '../components/post-list.jsx'
 
 class RecentPosts extends React.Component {
@@ -36,12 +37,22 @@ class RecentPosts extends React.Component {
     })
   }
 
+
   render() {
+    const {playHandler} = this.props
+    const {posts} = this.state
     return (
-      <PostList posts={this.state.posts} />
+      <PostList
+        posts={posts}
+        playHandler={playHandler}
+      />
     )
   }
 
+}
+
+RecentPosts.propTypes = {
+  playHandler: PropTypes.func
 }
 
 export default RecentPosts

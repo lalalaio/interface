@@ -9,6 +9,17 @@ ul.posts {
 
   .post {
 
+    .icon {
+      display: inline-block;
+      margin-right: 10px;
+      position: relative;
+      top: -25px;
+    }
+
+    .notes {
+      display: inline-block;
+    }
+
     .bar {
       margin-bottom: var(--toneSize);
       display: inline-block;

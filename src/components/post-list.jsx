@@ -1,10 +1,10 @@
 import PropTypes from 'prop-types'
 import Post from './post.jsx'
 
-const PostList = ({posts}) => {
+const PostList = ({posts, playHandler}) => {
   const listItems = posts.map((post) =>
     <li key={post.uuid}>
-      <Post post={post} />
+      <Post post={post} playHandler={playHandler}/>
     </li>
   )
   return (
@@ -13,7 +13,8 @@ const PostList = ({posts}) => {
 }
 
 PostList.propTypes = {
-  posts: PropTypes.arrayOf(PropTypes.object)
+  posts: PropTypes.arrayOf(PropTypes.object),
+  playHandler: PropTypes.func
 }
 
 export default PostList

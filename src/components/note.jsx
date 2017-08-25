@@ -3,22 +3,22 @@ import Tone from './tone.jsx'
 
 const Note = ({tone, index}) => {
   const toneChart = {
-    1: 'C7',
-    2: 'B7',
-    3: 'A#7',
-    4: 'A7',
-    5: 'G#6',
-    6: 'G6',
-    7: 'F#6',
-    8: 'F6',
-    9: 'E6',
-    10: 'D#6',
-    11: 'D6',
-    12: 'C#6',
-    13: 'C6',
-    14: 'B6',
-    15: 'A#6',
-    16: 'A6'
+    1: 'C3',
+    2: 'B3',
+    3: 'A#3',
+    4: 'A3',
+    5: 'G#2',
+    6: 'G2',
+    7: 'F#2',
+    8: 'F2',
+    9: 'E2',
+    10: 'D#2',
+    11: 'D2',
+    12: 'C#2',
+    13: 'C2',
+    14: 'B2',
+    15: 'A#2',
+    16: 'A2'
   }
   const toneList = Object.keys(toneChart).map(toneIndex => {
     const active = tone.note === toneChart[toneIndex]

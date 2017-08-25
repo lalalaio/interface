@@ -2,6 +2,17 @@ ul.posts {
   list-style: none;
 }
 
+  ul.posts .post .icon {
+      display: inline-block;
+      margin-right: 10px;
+      position: relative;
+      top: -25px;
+    }
+
+  ul.posts .post .notes {
+      display: inline-block;
+    }
+
   ul.posts .post .bar {
       margin-bottom: 5px;
       display: inline-block;
