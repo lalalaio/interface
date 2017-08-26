@@ -1,9 +1,10 @@
 import PropTypes from 'prop-types'
 import Bar from './bar.jsx'
 import Play from '../svg/play.svg.jsx'
+import Pause from '../svg/pause.svg.jsx'
 import noteBeats from '../util.js'
 
-const Post = ({post, playHandler}) => {
+const Post = ({post, playHandler, playingNote, isPlaying}) => {
   let bars = post.notes.reduce((bars, note) => {
     Array(noteBeats[note.duration]).fill('').map((_, index) => {
       const barNote = {'note': note.note}
@@ -31,6 +32,7 @@ const Post = ({post, playHandler}) => {
     event.stopPropagation()
     playHandler(event, post)
   }
+  const icon = isPlaying ? <Pause /> : <Play />
   return (
     <div className="post" data-uuid={post.uuid}>
       <div className="icon">
@@ -38,7 +40,7 @@ const Post = ({post, playHandler}) => {
           href="#"
           className="playButton"
           onClick={postPlayHandler}>
-            <Play />
+            {icon}
           </a>
       </div>
       <div className="notes">
@@ -50,7 +52,9 @@ const Post = ({post, playHandler}) => {
 
 Post.propTypes = {
   post: PropTypes.object,
-  playHandler: PropTypes.func
+  playHandler: PropTypes.func,
+  playingNote: PropTypes.number,
+  isPlaying: PropTypes.bool
 }
 
 export default Post

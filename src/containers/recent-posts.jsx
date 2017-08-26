@@ -39,12 +39,13 @@ class RecentPosts extends React.Component {
 
 
   render() {
-    const {playHandler} = this.props
+    const {playHandler, nowPlaying} = this.props
     const {posts} = this.state
     return (
       <PostList
         posts={posts}
         playHandler={playHandler}
+        nowPlaying={nowPlaying}
       />
     )
   }
@@ -52,7 +53,8 @@ class RecentPosts extends React.Component {
 }
 
 RecentPosts.propTypes = {
-  playHandler: PropTypes.func
+  playHandler: PropTypes.func,
+  nowPlaying: PropTypes.object
 }
 
 export default RecentPosts

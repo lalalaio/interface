@@ -2,6 +2,18 @@ const path = require('path')
 const webpack = require("webpack")
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 
+const plugins = [
+  new ExtractTextPlugin("main.css"),
+]
+
+if (
+  typeof process.env.nocompress === 'undefined' ||
+  process.env.nocompress === ''
+) {
+  plugins.push(new webpack.optimize.UglifyJsPlugin({
+    compress: { warnings: false }
+  }))
+}
 module.exports = {
   entry: ['./src/main.jsx', './src/css/main.css'],
   module: {
@@ -37,10 +49,5 @@ module.exports = {
     filename: 'main.js',
     path: path.resolve(__dirname, 'build')
   },
-  plugins: [
-    new webpack.optimize.UglifyJsPlugin({
-      compress: { warnings: false }
-    }),
-    new ExtractTextPlugin("main.css"),
-  ],
+  plugins: plugins
 }
