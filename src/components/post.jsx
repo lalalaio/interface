@@ -5,9 +5,12 @@ import Pause from '../svg/pause.svg.jsx'
 import noteBeats from '../util.js'
 
 const Post = ({post, playHandler, playingNote, isPlaying}) => {
-  let bars = post.notes.reduce((bars, note) => {
+  let bars = post.notes.reduce((bars, note, noteIndex) => {
     Array(noteBeats[note.duration]).fill('').map((_, index) => {
-      const barNote = {'note': note.note}
+      const barNote = {
+        'note': note.note,
+        'isPlaying': (isPlaying && (playingNote === noteIndex))
+      }
       if (index === 0) {
         barNote.start = true
       }
@@ -23,7 +26,8 @@ const Post = ({post, playHandler, playingNote, isPlaying}) => {
   }, [[]])
   bars = [...bars, ...Array(8).fill([])].slice(0, 8)
   bars = bars.map(bar => {
-    return [...bar, ...Array(16).fill({'note': 'REST'})].slice(0, 16)
+    const filler = Array(16).fill({'note': 'REST', 'isPlaying': false})
+    return [...bar, ...filler].slice(0, 16)
   })
   const barList = bars.map((notes, index) =>
     <Bar key={index} notes={notes} index={index} />
