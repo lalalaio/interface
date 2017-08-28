@@ -18,6 +18,14 @@ class Player extends React.Component {
     }
   }
 
+  noteToMIDI(note, octave) {
+    const notes = [
+      'C', 'C#', 'D', 'D#', 'E', 'F',
+      'F#', 'G', 'G#', 'A', 'A#', 'B'
+    ]
+    return notes.indexOf(note) + (octave * 12) + 24
+  }
+
   playNotes(notes, index, post) {
     const [note, ...remainingNotes] = notes
     const beats = noteBeats[note.duration]
@@ -28,7 +36,7 @@ class Player extends React.Component {
     })
     if (note.note !== 'REST') {
       const noteParts = note.note.match(/[a-zA-Z#]+|[0-9]+/g)
-      const midiNote = this.state.synth.noteToMIDI(...noteParts)
+      const midiNote = this.noteToMIDI(...noteParts)
       this.state.synth.playNote(midiNote, 1.0, 1.0, 0)
     }
     if (remainingNotes.length > 0) {
