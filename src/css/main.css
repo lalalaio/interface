@@ -8,8 +8,10 @@
 
 ul.posts {
   list-style: none;
+  padding-left: 0;
 
   .post {
+    margin-bottom: 20px;
 
     .icon {
       display: inline-block;
@@ -57,6 +59,14 @@ ul.posts {
           border-left: 1px var(--toneBorder) solid;
         }
 
+      }
+
+      .note.octave-low {
+        border-bottom: 1px #000 solid;
+      }
+
+      .note.octave-high {
+        border-top: 1px #000 solid;
       }
     }
   }

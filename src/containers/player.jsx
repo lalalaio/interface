@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import RecentPosts from './recent-posts.jsx'
 import AudioSynth from 'audiosynth'
-import noteBeats from '../util.js'
+import {noteBeats} from '../util.js'
 
 class Player extends React.Component {
 
@@ -27,7 +27,7 @@ class Player extends React.Component {
       return {'playing': nowPlaying}
     })
     if (note.note !== 'REST') {
-      const noteParts = note.note.match(/[a-zA-Z]+|[0-9]+/g)
+      const noteParts = note.note.match(/[a-zA-Z#]+|[0-9]+/g)
       const midiNote = this.state.synth.noteToMIDI(...noteParts)
       this.state.synth.playNote(midiNote, 1.0, 1.0, 0)
     }

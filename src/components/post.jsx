@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 import Bar from './bar.jsx'
 import Play from '../svg/play.svg.jsx'
 import Pause from '../svg/pause.svg.jsx'
-import noteBeats from '../util.js'
+import {noteBeats} from '../util.js'
 
 const Post = ({post, playHandler, playingNote, isPlaying}) => {
   let bars = post.notes.reduce((bars, note, noteIndex) => {
