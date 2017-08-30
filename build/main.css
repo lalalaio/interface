@@ -1,65 +1,86 @@
+body {
+  margin: 0;
+}
+
+nav {
+  border-bottom: 3px #ccc solid;
+  margin-bottom: 10px;
+  padding: 10px;
+}
+
+.icon .primary {
+  fill: #666;
+}
+
+.icon:hover .primary {
+  fill: #000;
+}
+
 ul.posts {
   list-style: none;
   padding-left: 0;
 }
 
-  ul.posts .post {
-    margin-bottom: 20px;
+.post {
+  border-bottom: 1px #eee solid;
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+  padding-left: 10px;
+}
+
+.post .icon {
+    display: inline-block;
+    margin-right: 10px;
+    position: relative;
+    top: -13px;
   }
 
-  ul.posts .post .icon {
+.post .notes {
+    display: inline-block;
+  }
+
+.post .bar {
+    margin-bottom: 3px;
+    margin-right: 5px;
+    display: inline-block;
+    border-right: 1px #eee solid;
+  }
+
+.post .bar .note {
+      border-bottom: 1px #eee solid;
       display: inline-block;
-      margin-right: 10px;
-      position: relative;
-      top: -25px;
+
     }
 
-  ul.posts .post .notes {
-      display: inline-block;
+.post .bar .note .tone {
+        border-left: 1px #eee solid;
+        border-top: 1px #eee solid;
+        height: 3px;
+        width: 5px;
+      }
+
+.post .bar .note .tone.active {
+        background: #999;
+        border-left: 1px #999 solid;
+      }
+
+.post .bar .note .tone.active.start {
+        border-left: 1px #eee solid;
+      }
+
+.post .bar .note .tone.playing {
+        background: #000;
+        border-left: 1px #000 solid;
+      }
+
+.post .bar .note .tone.playing.start {
+        border-left: 1px #eee solid;
+      }
+
+.post .bar .note.octave-low {
+      border-bottom: 1px #000 solid;
     }
 
-  ul.posts .post .bar {
-      margin-bottom: 3px;
-      margin-right: 5px;
-      display: inline-block;
-      border-right: 1px #eee solid;
+.post .bar .note.octave-high {
+      border-top: 1px #000 solid;
     }
-
-  ul.posts .post .bar .note {
-        border-bottom: 1px #eee solid;
-        display: inline-block;
-
-      }
-
-  ul.posts .post .bar .note .tone {
-          border-left: 1px #eee solid;
-          border-top: 1px #eee solid;
-          height: 3px;
-          width: 5px;
-        }
-
-  ul.posts .post .bar .note .tone.active {
-          background: #999;
-          border-left: 1px #999 solid;
-        }
-
-  ul.posts .post .bar .note .tone.active.start {
-          border-left: 1px #eee solid;
-        }
-
-  ul.posts .post .bar .note .tone.playing {
-          background: #000;
-          border-left: 1px #000 solid;
-        }
-
-  ul.posts .post .bar .note .tone.playing.start {
-          border-left: 1px #eee solid;
-        }
-
-  ul.posts .post .bar .note.octave-low {
-        border-bottom: 1px #000 solid;
-      }
-
-  ul.posts .post .bar .note.octave-high {
-        border-top: 1px #000 solid;
-      }
