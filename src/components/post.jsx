@@ -1,38 +1,17 @@
 import PropTypes from 'prop-types'
-import Bar from './bar.jsx'
-import Play from '../svg/play.svg.jsx'
-import Pause from '../svg/pause.svg.jsx'
-import {noteBeats} from '../util.js'
+import React from 'react'
+import Bar from './bar'
+import Play from '../svg/play.svg'
+import Pause from '../svg/pause.svg'
+import { notesToBars } from '../util'
 
-const Post = ({post, playHandler, playingNote, isPlaying}) => {
-  let bars = post.notes.reduce((bars, note, noteIndex) => {
-    Array(noteBeats[note.duration]).fill('').map((_, index) => {
-      const barNote = {
-        'note': note.note,
-        'isPlaying': (isPlaying && (playingNote === noteIndex))
-      }
-      if (index === 0) {
-        barNote.start = true
-      }
-      if (index + 1 === noteBeats[note.duration]) {
-        barNote.end = true
-      }
-      bars[bars.length-1].push(barNote)
-      if (bars[bars.length-1].length == 16) {
-        bars.push([])
-      }
-    })
-    return bars
-  }, [[]])
-  bars = [...bars, ...Array(8).fill([])].slice(0, 8)
-  bars = bars.map(bar => {
-    const filler = Array(16).fill({'note': 'REST', 'isPlaying': false})
-    return [...bar, ...filler].slice(0, 16)
-  })
+const Post = ({ post, playHandler, playingNote, isPlaying }) => {
+  const bars = notesToBars(post.notes, isPlaying, playingNote)
+  /* eslint-disable react/no-array-index-key */
   const barList = bars.map((notes, index) =>
-    <Bar key={index} notes={notes} index={index} />
+    <Bar key={index} notes={notes} index={index} />,
   )
-  const postPlayHandler = event => {
+  const postPlayHandler = (event) => {
     event.stopPropagation()
     playHandler(event, post)
   }
@@ -41,11 +20,12 @@ const Post = ({post, playHandler, playingNote, isPlaying}) => {
     <div className="post" data-uuid={post.uuid}>
       <div className="icon">
         <a
-          href="#"
+          href="#▶"
           className="playButton"
-          onClick={postPlayHandler}>
-            {icon}
-          </a>
+          onClick={postPlayHandler}
+        >
+          {icon}
+        </a>
       </div>
       <div className="notes">
         {barList}
@@ -54,11 +34,18 @@ const Post = ({post, playHandler, playingNote, isPlaying}) => {
   )
 }
 
+Post.defaultProps = {
+  playingNote: 0,
+}
+
 Post.propTypes = {
-  post: PropTypes.object,
-  playHandler: PropTypes.func,
+  post: PropTypes.shape({
+    uuid: PropTypes.string,
+    notes: PropTypes.array,
+  }).isRequired,
+  playHandler: PropTypes.func.isRequired,
   playingNote: PropTypes.number,
-  isPlaying: PropTypes.bool
+  isPlaying: PropTypes.bool.isRequired,
 }
 
 export default Post

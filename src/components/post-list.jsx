@@ -1,16 +1,17 @@
 import PropTypes from 'prop-types'
-import Post from './post.jsx'
+import React from 'react'
+import Post from './post'
 
-const PostList = ({posts, playHandler, nowPlaying}) => {
-  const listItems = posts.map((post) =>
-    <li key={post.uuid}>
+const PostList = ({ posts, playHandler, nowPlaying }) => {
+  const listItems = posts.map(post =>
+    (<li key={post.uuid}>
       <Post
         post={post}
         playHandler={playHandler}
         playingNote={nowPlaying[post.uuid]}
-        isPlaying={(post.uuid in nowPlaying) ? true : false}
+        isPlaying={(post.uuid in nowPlaying)}
       />
-    </li>
+    </li>),
   )
   return (
     <ul className="posts">{listItems}</ul>
@@ -18,9 +19,9 @@ const PostList = ({posts, playHandler, nowPlaying}) => {
 }
 
 PostList.propTypes = {
-  posts: PropTypes.arrayOf(PropTypes.object),
-  playHandler: PropTypes.func,
-  nowPlaying: PropTypes.object
+  posts: PropTypes.arrayOf(PropTypes.object).isRequired,
+  playHandler: PropTypes.func.isRequired,
+  nowPlaying: PropTypes.objectOf(PropTypes.number).isRequired,
 }
 
 export default PostList

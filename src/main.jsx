@@ -1,14 +1,10 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import Header from './containers/header.jsx'
-import Player from './containers/player.jsx'
+import App from './containers/app'
 
 ReactDOM.render(
-  <div className="body">
-    <Header />
-    <Player
-      apiBase="https://ezkyx4kbc1.execute-api.us-east-1.amazonaws.com/v1"
-    />
-  </div>,
+  <App
+    apiBase="https://ezkyx4kbc1.execute-api.us-east-1.amazonaws.com/v1"
+  />,
   document.getElementById('container'),
 )

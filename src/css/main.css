@@ -1,12 +1,15 @@
 :root {
   --toneBorder: #eee;
   --toneHeight: 3px;
+  --toneHeightEdit: 6px;
   --toneWidth: 5px;
   --toneActive: #999;
   --tonePlaying: #000;
+  --background: #fff;
 }
 
 body {
+  background: var(--background);
   margin: 0;
 }
 
@@ -59,7 +62,11 @@ ul.posts {
       .tone {
         border-left: 1px var(--toneBorder) solid;
         border-top: 1px var(--toneBorder) solid;
+        display: block;
         height: var(--toneHeight);
+        overflow: hidden;
+        text-indent: -9999;
+        white-space: nowrap;
         width: var(--toneWidth);
       }
 
@@ -90,5 +97,84 @@ ul.posts {
     .note.octave-high {
       border-top: 1px #000 solid;
     }
+  }
+}
+
+#editor .post {
+  padding-top: 10px;
+
+  .icon {
+    top: -30px;
+  }
+
+  .tone {
+    height: var(--toneHeightEdit);
+  }
+
+  .controls {
+    display: inline-block;
+    vertical-align: top;
+
+    .notes, .octaves {
+      border: 1px #eee solid;
+      overflow: hidden;
+      padding: 5px 5px 0 5px;
+      text-indent: -9999;
+      white-space: nowrap;
+    }
+
+    .note {
+      background: var(--toneActive);
+      display: block;
+      height: var(--toneHeightEdit);
+      margin-bottom: 8px;
+    }
+    .note-1 {
+      width: 5px;
+    }
+    .note-2 {
+      width: 11px;
+    }
+    .note-4 {
+      width: 23px;
+    }
+    .note-8 {
+      width: 47px;
+    }
+    .note-16 {
+      width: 95px;
+    }
+
+    .note.active {
+      background: var(--tonePlaying);
+    }
+
+    .octave {
+      background: var(--toneActive);
+      display: block;
+      height: 12px;
+      width: 13px;
+      margin-bottom: 5px;
+      padding-top: 2px;
+
+      .high, .mid, .low {
+        background: #eee;
+        height: 2px;
+        width: 9px;
+        margin-left: 2px;
+      }
+      .high, .mid {
+        margin-bottom: 2px;
+      }
+    }
+
+    .octave.active {
+      background: var(--tonePlaying);
+    }
+
+    .octave-high .high, .octave-low .low {
+      background: #666;
+    }
+
   }
 }

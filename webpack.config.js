@@ -16,6 +16,9 @@ if (
 }
 module.exports = {
   entry: ['./src/main.jsx', './src/css/main.css'],
+  resolve: {
+    extensions: ['.js', '.jsx'],
+  },
   module: {
     rules: [
       {

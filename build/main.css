@@ -1,4 +1,5 @@
 body {
+  background: #fff;
   margin: 0;
 }
 
@@ -55,7 +56,11 @@ ul.posts {
 .post .bar .note .tone {
         border-left: 1px #eee solid;
         border-top: 1px #eee solid;
+        display: block;
         height: 3px;
+        overflow: hidden;
+        text-indent: -9999;
+        white-space: nowrap;
         width: 5px;
       }
 
@@ -83,4 +88,89 @@ ul.posts {
 
 .post .bar .note.octave-high {
       border-top: 1px #000 solid;
+    }
+
+#editor .post {
+  padding-top: 10px;
+}
+
+#editor .post .icon {
+    top: -30px;
+  }
+
+#editor .post .tone {
+    height: 6px;
+  }
+
+#editor .post .controls {
+    display: inline-block;
+    vertical-align: top;
+
+  }
+
+#editor .post .controls .notes, #editor .post .controls .octaves {
+      border: 1px #eee solid;
+      overflow: hidden;
+      padding: 5px 5px 0 5px;
+      text-indent: -9999;
+      white-space: nowrap;
+    }
+
+#editor .post .controls .note {
+      background: #999;
+      display: block;
+      height: 6px;
+      margin-bottom: 8px;
+    }
+
+#editor .post .controls .note-1 {
+      width: 5px;
+    }
+
+#editor .post .controls .note-2 {
+      width: 11px;
+    }
+
+#editor .post .controls .note-4 {
+      width: 23px;
+    }
+
+#editor .post .controls .note-8 {
+      width: 47px;
+    }
+
+#editor .post .controls .note-16 {
+      width: 95px;
+    }
+
+#editor .post .controls .note.active {
+      background: #000;
+    }
+
+#editor .post .controls .octave {
+      background: #999;
+      display: block;
+      height: 12px;
+      width: 13px;
+      margin-bottom: 5px;
+      padding-top: 2px;
+    }
+
+#editor .post .controls .octave .high, #editor .post .controls .octave .mid, #editor .post .controls .octave .low {
+        background: #eee;
+        height: 2px;
+        width: 9px;
+        margin-left: 2px;
+      }
+
+#editor .post .controls .octave .high, #editor .post .controls .octave .mid {
+        margin-bottom: 2px;
+      }
+
+#editor .post .controls .octave.active {
+      background: #000;
+    }
+
+#editor .post .controls .octave-high .high, #editor .post .controls .octave-low .low {
+      background: #666;
     }
