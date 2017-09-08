@@ -19,11 +19,14 @@ class App extends React.Component {
     super(props)
     const AudioContext = window.AudioContext || window.webkitAudioContext
     const context = new AudioContext()
+    const synth = new AudioSynth(context)
+    synth.setOscWave(3)
+    synth.setMasterGain(0.8)
     this.state = {
       playing: {},
       AudioContext,
       context,
-      synth: new AudioSynth(context),
+      synth: synth,
       isEditing: false,
     }
     this.onPlay = this.onPlay.bind(this)
@@ -45,23 +48,25 @@ class App extends React.Component {
   }
 
   playNotes(notes, index, post) {
-    const [note, ...remainingNotes] = notes
-    const beats = noteBeats[note.duration]
-    this.setState((prevState) => {
-      const nowPlaying = prevState.playing
-      nowPlaying[post.uuid] = index
-      return { playing: nowPlaying }
-    })
-    if (note.note !== 'REST') {
-      const noteParts = note.note.match(/[a-zA-Z#]+|[0-9]+/g)
-      const midiNote = noteToMIDI(...noteParts)
-      this.state.synth.playNote(midiNote, 1.0, 1.0, 0)
-    }
-    if (remainingNotes.length > 0) {
+    if (notes.length > 0) {
+      const [note, ...remainingNotes] = notes
+      const beats = noteBeats[note.duration]
+      this.setState((prevState) => {
+        const nowPlaying = prevState.playing
+        nowPlaying[post.uuid] = index
+        return { playing: nowPlaying }
+      })
+      if (note.note !== 'REST') {
+        const noteParts = note.note.match(/[a-zA-Z#]+|[0-9]+/g)
+        const midiNote = noteToMIDI(...noteParts)
+        this.state.synth.setAmpReleaseTime(beats * 0.03)
+        this.state.synth.playNote(midiNote, 3.0, beats * 0.2, 0)
+      }
       setTimeout(() => {
         this.playNotes(remainingNotes, index + 1, post)
-      }, 250 * beats)
-    } else {
+      }, 100 * beats)
+    }
+    else {
       this.setState((prevState) => {
         const nowPlaying = prevState.playing
         delete nowPlaying[post.uuid]
