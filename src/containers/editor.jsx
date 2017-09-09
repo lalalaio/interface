@@ -5,6 +5,7 @@ import OctaveControl from '../components/octave-control'
 import NoteControl from '../components/note-control'
 import Play from '../svg/play.svg'
 import Pause from '../svg/pause.svg'
+import Check from '../svg/check.svg'
 import { notesToBars, barsToNotes, allTones } from '../util'
 
 class Editor extends React.Component {
@@ -141,6 +142,7 @@ class Editor extends React.Component {
               />
             </div>
           </div>
+          <Check />
         </div>
       </div>
     )

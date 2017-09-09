@@ -26,7 +26,7 @@ class App extends React.Component {
       playing: {},
       AudioContext,
       context,
-      synth: synth,
+      synth,
       isEditing: false,
     }
     this.onPlay = this.onPlay.bind(this)
@@ -65,8 +65,7 @@ class App extends React.Component {
       setTimeout(() => {
         this.playNotes(remainingNotes, index + 1, post)
       }, 100 * beats)
-    }
-    else {
+    } else {
       this.setState((prevState) => {
         const nowPlaying = prevState.playing
         delete nowPlaying[post.uuid]
