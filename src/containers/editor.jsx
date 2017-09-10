@@ -6,7 +6,7 @@ import NoteControl from '../components/note-control'
 import Play from '../svg/play.svg'
 import Pause from '../svg/pause.svg'
 import Check from '../svg/check.svg'
-import { notesToBars, barsToNotes, allTones } from '../util'
+import { notesToBars, allTones, addNoteToNotes } from '../util'
 
 class Editor extends React.Component {
   constructor(props) {
@@ -33,7 +33,6 @@ class Editor extends React.Component {
   onToneClick(event, barIndex, noteIndex, toneIndex) {
     this.setState((prevState) => {
       const { beats, notes, range } = prevState
-      const bars = notesToBars(notes, false, 0)
       let toneBase = 0
       if (range === 'mid') {
         toneBase = 24
@@ -41,21 +40,11 @@ class Editor extends React.Component {
       if (range === 'high') {
         toneBase = 48
       }
-      const tone = allTones[toneBase + (24 - toneIndex)]
-      const newBars = bars.slice(0)
-      let barNote
-      for (let index = 0; index < beats; index += 1) {
-        barNote = noteIndex + index
-        if (barNote < 16) {
-          if (newBars[barIndex][barNote].note === tone) {
-            newBars[barIndex][barNote] = { note: 'REST', isPlaying: false }
-          } else {
-            newBars[barIndex][barNote] = { note: tone, isPlaying: false }
-          }
-        }
-      }
+      const noteTone = allTones[toneBase + (24 - toneIndex)]
+      const noteBeats = beats
+      const beatIndex = (barIndex * 16) + noteIndex
       return {
-        notes: barsToNotes(newBars),
+        notes: addNoteToNotes(notes, noteTone, noteBeats, beatIndex),
       }
     })
   }

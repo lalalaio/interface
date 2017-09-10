@@ -71,32 +71,101 @@ const fullBars = bars => bars.map(fillBar)
 const notesToBars = (notes, isPlaying, playingNote) =>
   fullBars(allBars(notesToBarsWithoutFiller(notes, isPlaying, playingNote)))
 
-const allRestAfter = (notes, index) =>
-  notes.slice(index).filter(note => note.note !== 'REST').length === 0
+const notesToBeats = notes =>
+  notes.map(note => noteBeats[note.duration])
 
-const barsToNotes = bars =>
-  bars.reduce((notes, bar) => {
-    const barNotes = bar
-      .reduce((oldBarNotes, beat) => {
-        const newBarNotes = oldBarNotes.slice(0)
-        const isNewNote = (
-          newBarNotes.length === 0 ||
-          newBarNotes[newBarNotes.length - 1].note !== beat.note ||
-          newBarNotes[newBarNotes.length - 1].beats === 16
-        )
-        if (isNewNote) {
-          newBarNotes.push({ note: beat.note, beats: 1 })
-        } else {
-          newBarNotes[newBarNotes.length - 1].beats += 1
-        }
-        return newBarNotes
-      }, [])
-      .map(note => ({
-        note: note.note,
-        duration: beatsToDuration(note.beats),
-      }))
-    return [...notes, ...barNotes]
-  }, [])
-    .filter((_, noteIndex, notes) => !allRestAfter(notes, noteIndex))
+const arraySum = numbers =>
+  numbers.reduce((total, value) => total + value, 0)
 
-export { beatsToDuration, noteBeats, allTones, notesToBars, barsToNotes }
+const notesBeatSum = notes => arraySum(notesToBeats(notes))
+
+const indexBeforeSum = (numbers, sum) => {
+  let index = 0
+  let sumAtIndex = 0
+  while (sumAtIndex <= sum) {
+    sumAtIndex += numbers[index]
+    index += 1
+  }
+  return index - 1
+}
+
+const indexAtOrAfterSum = (numbers, sum) => {
+  let index = 0
+  let sumAtIndex = 0
+  while (sumAtIndex < sum) {
+    sumAtIndex += numbers[index]
+    index += 1
+  }
+  return index
+}
+
+const notesBeforeBeat = (notes, beat) =>
+  notes.slice(0, indexBeforeSum(notesToBeats(notes), beat))
+
+const notesAfterBeat = (notes, beat) =>
+  notes.slice(indexAtOrAfterSum(notesToBeats(notes), beat))
+
+const restToFillBeats = (beats) => {
+  const rests = []
+  let beatsToRemove = beats
+  let duration
+  while (beatsToRemove > 0) {
+    duration = beatsToDuration(beatsToRemove)
+    rests.push({ note: 'REST', duration })
+    beatsToRemove -= noteBeats[duration]
+  }
+  return rests
+}
+
+const notesBeforeAdd = (notes, beatIndex) => {
+  const beforeNotes = notesBeforeBeat(notes, beatIndex)
+  const neededBeforeBeats = beatIndex - notesBeatSum(beforeNotes)
+  const fillerRestsBefore = restToFillBeats(neededBeforeBeats)
+  return [...beforeNotes, ...fillerRestsBefore]
+}
+
+const notesAfterAdd = (notes, beatIndex, beforeNotes, addNoteBeats) => {
+  const afterNotes = notesAfterBeat(notes, beatIndex + addNoteBeats)
+  const afterBeats = notesBeatSum(afterNotes)
+  if (afterBeats > 0) {
+    const beforeAndNoteBeats = notesBeatSum(beforeNotes) + addNoteBeats
+    const beatsWithoutRestsAfter = beforeAndNoteBeats + afterBeats
+    const neededAfterBeats = notesBeatSum(notes) - beatsWithoutRestsAfter
+    const fillerRestsAfter = restToFillBeats(neededAfterBeats)
+    return [...fillerRestsAfter, ...afterNotes]
+  }
+  return afterNotes
+}
+
+const addNoteToNotes = (notes, addNoteTone, addNoteBeats, beatIndex) => {
+  const note = {
+    note: addNoteTone,
+    duration: beatsToDuration(addNoteBeats),
+  }
+  const beforeNotes = notesBeforeAdd(notes, beatIndex)
+  const afterNotes = notesAfterAdd(notes, beatIndex, beforeNotes, addNoteBeats)
+  return [...beforeNotes, note, ...afterNotes]
+}
+
+export {
+  noteBeats,
+  beatsToDuration,
+  allTones,
+  barFiller,
+  notesToBarsWithoutFiller,
+  allBars,
+  fillBar,
+  fullBars,
+  notesToBars,
+  notesToBeats,
+  arraySum,
+  notesBeatSum,
+  indexBeforeSum,
+  indexAtOrAfterSum,
+  notesBeforeBeat,
+  notesAfterBeat,
+  restToFillBeats,
+  notesBeforeAdd,
+  notesAfterAdd,
+  addNoteToNotes,
+}
