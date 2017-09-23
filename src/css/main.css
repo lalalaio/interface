@@ -38,11 +38,20 @@ ul.posts {
   padding-bottom: 20px;
   padding-left: 10px;
 
-  .icon {
+  .actions {
     display: inline-block;
+    vertical-align: top;
     margin-right: 10px;
-    position: relative;
-    top: -13px;
+  }
+
+  .meta {
+    display: inline-block;
+    vertical-align: top;
+
+    .icon {
+      height: 25px;
+      width: 25px;
+    }
   }
 
   .notes {

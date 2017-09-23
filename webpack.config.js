@@ -11,7 +11,12 @@ if (
   process.env.nocompress === ''
 ) {
   plugins.push(new webpack.optimize.UglifyJsPlugin({
-    compress: { warnings: false }
+    compress: { warnings: false },
+    output: {
+      comments: false,
+      ascii_only: true,
+      beautify: false,
+    },
   }))
 }
 module.exports = {
@@ -47,6 +52,8 @@ module.exports = {
   externals: {
     'react': 'React',
     'react-dom': 'ReactDOM',
+    'react-router-dom': 'ReactRouterDOM',
+    'prop-types': 'PropTypes',
   },
   output: {
     filename: 'main.js',

@@ -5,8 +5,6 @@ const Check = () => (
     xmlns="http://www.w3.org/2000/svg"
     className="icon icon-check"
     version="1.1"
-    x="0px"
-    y="0px"
     width="50px"
     height="50px"
     viewBox="0 0 512 512"

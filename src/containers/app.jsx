@@ -1,8 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { BrowserRouter as Router, Route } from 'react-router-dom'
 import AudioSynth from 'audiosynth'
 import Header from '../components/header'
 import RecentPosts from './recent-posts'
+import SinglePost from './single-post'
 import Editor from './editor'
 import { noteBeats } from '../util'
 
@@ -28,6 +30,7 @@ class App extends React.Component {
       context,
       synth,
       isEditing: false,
+      postsCache: {},
     }
     this.onPlay = this.onPlay.bind(this)
     this.onEdit = this.onEdit.bind(this)
@@ -45,6 +48,14 @@ class App extends React.Component {
 
   onEdit() {
     this.setState(prevState => ({ isEditing: !prevState.isEditing }))
+  }
+
+  addPost(post) {
+    this.setState((prevState) => {
+      const postsCache = prevState.postsCache
+      postsCache[post.uuid] = post
+      return { postsCache }
+    })
   }
 
   playNotes(notes, index, post) {
@@ -82,17 +93,38 @@ class App extends React.Component {
         nowPlaying={this.state.playing}
       />) : ''
     return (
-      <div className="app">
-        <Header
-          editHandler={this.onEdit}
-        />
-        {editorOrNothing}
-        <RecentPosts
-          playHandler={this.onPlay}
-          apiBase={apiBase}
-          nowPlaying={this.state.playing}
-        />
-      </div>
+      <Router>
+        <div>
+          <Header
+            editHandler={this.onEdit}
+          />
+          {editorOrNothing}
+          <Route
+            exact
+            path="/"
+            render={() => (
+              <RecentPosts
+                playHandler={this.onPlay}
+                apiBase={apiBase}
+                nowPlaying={this.state.playing}
+                postsCache={this.state.postsCache}
+              />
+            )}
+          />
+          <Route
+            path={'/\u25B6/:postUuid'}
+            render={({ match }) => (
+              <SinglePost
+                postUuid={match.params.postUuid}
+                playHandler={this.onPlay}
+                apiBase={apiBase}
+                nowPlaying={this.state.playing}
+                postsCache={this.state.postsCache}
+              />
+            )}
+          />
+        </div>
+      </Router>
     )
   }
 }

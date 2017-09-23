@@ -11,17 +11,24 @@ class RecentPosts extends React.Component {
   }
 
   async componentWillMount() {
-    const { apiBase } = this.props
+    const { apiBase, postsCache } = this.props
     const recentPostsApi = `${apiBase}/post/latest`
     const recentPostUuids = await fetch(recentPostsApi)
       .then(response => response.json())
     const recentPosts = await Promise.all(
       recentPostUuids.map((postUuid) => {
+        if (postUuid in postsCache) {
+          return postsCache[postUuid]
+        }
         const postApi = `${apiBase}/post/${postUuid}`
         return fetch(postApi)
           .then(response => response.json())
       }),
     )
+    for (let index = 0; index < recentPosts.length; index += 1) {
+      const post = recentPosts[index]
+      postsCache[post.uuid] = post
+    }
     this.setState({
       posts: recentPosts,
     })
@@ -44,6 +51,7 @@ RecentPosts.propTypes = {
   playHandler: PropTypes.func.isRequired,
   nowPlaying: PropTypes.objectOf(PropTypes.number).isRequired,
   apiBase: PropTypes.string.isRequired,
+  postsCache: PropTypes.arrayOf(PropTypes.object).isRequired,
 }
 
 export default RecentPosts
