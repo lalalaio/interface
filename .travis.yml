@@ -1,3 +1,13 @@
 language: node_js
 node_js:
-  - "8.4.0"
+- 8.4.0
+deploy:
+  provider: s3
+  access_key_id: AKIAIMQQAM7TB3MVYGHA
+  secret_access_key:
+    secure: uRsf8NPGUps7NImqxBZmlPeyxk2Od1+XE6XZogI97p008Z4YxdCxRLkG15DEwh8T6MYopocW9Fh1gOykhAeenn0SdxHWttrl+w6Yh9FgHane+VBtzmGA99d4XfxSe8YI4KtbV5NZnsymoS0cwL+MPOtjsbMowm6Z8w7UfbveS99IoqCRW1MUv9xH45PSq0EeOe+yAs0nDLuWhrm1XnRW42It/TxzgkaylCj/pXb8rtKuYc4+vDI/oz3dSmJLVkZZLlt22CpSDpTGYJiburb1f95X/QkCWCgS9xj12BZzTocbhLBGERJzbqjEqJOF1sITfJzqgfEa90GdAHRRMhxAwr/VqULprF1Z4kAxvULbxLOKd+AuT9X7d+PbzlSxKaGEGPyf4tzbt9Tsxk6pTgUgLtL/r58jjlq1z14YaN47ZHCV4Fx9m9bZa/0MNlDHisVsW+1MsZ+0YtSDrYycdf3QmiOcb9J59z+ZjTrEBEvcEwD8Wx7H/fXarGUfP5Y/ba+8V+Gv5vntnfXJtqUQXyWqagLo+wftmQsezARikrPdw2zfDGCoIxkv+kX30bg5tCWwq3p0u+9U0gZmGAoAy94qvlaaTkSRjkVYdS/Za4sqzdfs7l5jRFAaouDfUbG0Lqnx626zgDaIYCayPi13t8GfgplZArHhqI7vAyAN/eJsPvA=
+  bucket: dev.lalala.io
+  local_dir: build
+  acl: public_read
+  on:
+    repo: lalalaio/interface
