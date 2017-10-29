@@ -19,6 +19,14 @@ nav {
   padding: 10px;
 }
 
+a[role=button] {
+  cursor: pointer;
+}
+
+a:focus {
+  outline: 0;
+}
+
 .icon .primary {
   fill: #666;
 }
@@ -42,6 +50,12 @@ ul.posts {
     display: inline-block;
     vertical-align: top;
     margin-right: 10px;
+
+    a {
+      display: block;
+      margin-bottom: 10px;
+    }
+
   }
 
   .meta {

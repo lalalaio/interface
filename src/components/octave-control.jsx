@@ -6,9 +6,10 @@ const OctaveControl = ({ range, active, clickHandler }) => {
   const octaveClass = `octave octave-${range}${activeClass}`
   return (
     <a
-      href="#&#119064;"
       className={octaveClass}
       onClick={event => clickHandler(event, range)}
+      role="button"
+      tabIndex="0"
     >
       <div className="high" />
       <div className="mid" />

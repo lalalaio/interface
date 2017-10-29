@@ -13,11 +13,7 @@ import {
   notesBeatSum,
   indexBeforeSum,
   indexAtOrAfterSum,
-  notesBeforeBeat,
-  notesAfterBeat,
   restToFillBeats,
-  notesBeforeAdd,
-  notesAfterAdd,
   addNoteToNotes,
 } from '../src/util'
 
@@ -61,6 +57,11 @@ const sRest = {
 const eRest = {
   note: 'REST',
   duration: '1/8',
+}
+
+const wRest = {
+  note: 'REST',
+  duration: 1,
 }
 
 test("qC4 is { note: 'C4', duration: '1/4' }", () => {
@@ -207,40 +208,20 @@ test("indexBeforeSum([4, 4, 4, 4], 9) is 2", () => {
   expect(indexBeforeSum([4, 4, 4, 4], 9)).toBe(2)
 })
 
-test("notesBeforeBeat([qC4, qC4, qC4, qC4], 8) is [qC4, qC4]", () => {
-  expect(notesBeforeBeat([qC4, qC4, qC4, qC4], 8)).toEqual([qC4, qC4])
-})
-
-test("notesBeforeBeat([qC4, qC4, qC4, qC4], 9) is [qC4, qC4]", () => {
-  expect(notesBeforeBeat([qC4, qC4, qC4, qC4], 9)).toEqual([qC4, qC4])
-})
-
-test("notesAfterBeat([qC4, qC4, qC4, qC4], 8) is [qC4, qC4]", () => {
-  expect(notesAfterBeat([qC4, qC4, qC4, qC4], 8)).toEqual([qC4, qC4])
-})
-
-test("notesAfterBeat([qC4, qC4, qC4, qC4], 9) is [qC4]", () => {
-  expect(notesAfterBeat([qC4, qC4, qC4, qC4], 9)).toEqual([qC4])
-})
-
 test("restToFillBeats(8) is [hRest]", () => {
   expect(restToFillBeats(8)).toEqual([hRest])
+})
+
+test("restToFillBeats(10) is [hRest, eRest]", () => {
+  expect(restToFillBeats(10)).toEqual([hRest, eRest])
 })
 
 test("addNoteToNotes([], 'C4', 4, 0) is [qC4]", () => {
   expect(addNoteToNotes([], 'C4', 4, 0)).toEqual([qC4])
 })
 
-test("notesBeforeBeat([], 1) is []", () => {
-  expect(notesBeforeBeat([], 1)).toEqual([])
-})
-
 test("restToFillBeats(1) is [sRest]", () => {
   expect(restToFillBeats(1)).toEqual([sRest])
-})
-
-test("notesBeforeAdd([], 1) is [sRest]", () => {
-  expect(notesBeforeAdd([], 1)).toEqual([sRest])
 })
 
 test("addNoteToNotes([], 'C4', 4, 1) is [sRest, qC4]", () => {
@@ -255,14 +236,6 @@ test("addNoteToNotes([qC4], 'C4', 4, 4) is [qC4, qC4]", () => {
   expect(addNoteToNotes([qC4], 'C4', 4, 4)).toEqual([qC4, qC4])
 })
 
-test("notesBeforeBeat([qC4, qC4], 2) is []", () => {
-  expect(notesBeforeBeat([qC4, qC4], 2)).toEqual([])
-})
-
-test("notesAfterBeat([qC4, qC4], 6) is []", () => {
-  expect(notesAfterBeat([qC4, qC4], 6)).toEqual([])
-})
-
 test("notesBeatSum([]) is 0", () => {
   expect(notesBeatSum([])).toBe(0)
 })
@@ -273,4 +246,8 @@ test("notesBeatSum([qC4, qC4]) is 8", () => {
 
 test("addNoteToNotes([qC4, qC4], 'C4', 4, 2) is [eRest, qC4]", () => {
   expect(addNoteToNotes([qC4, qC4], 'C4', 4, 2)).toEqual([eRest, qC4])
+})
+
+test("addNoteToNotes([wRest, qC4], 'C4', 4, 2) is [eRest, qC4, hRest, eRest, qC4]", () => {
+  expect(addNoteToNotes([wRest, qC4], 'C4', 4, 2)).toEqual([eRest, qC4, hRest, eRest, qC4])
 })

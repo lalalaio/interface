@@ -24,9 +24,10 @@ const Post = ({ post, playHandler, playingNote, isPlaying, isFocused }) => {
     <div className="post">
       <div className="actions">
         <a
-          href="#▶"
           className="playButton"
           onClick={postPlayHandler}
+          role="button"
+          tabIndex="0"
         >
           {icon}
         </a>

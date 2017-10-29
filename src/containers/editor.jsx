@@ -20,6 +20,7 @@ class Editor extends React.Component {
     this.onNoteClick = this.onNoteClick.bind(this)
     this.onOctaveClick = this.onOctaveClick.bind(this)
     this.onToneClick = this.onToneClick.bind(this)
+    this.onSaveClick = this.onSaveClick.bind(this)
   }
 
   onOctaveClick(event, range) {
@@ -49,6 +50,20 @@ class Editor extends React.Component {
     })
   }
 
+  async onSaveClick() {
+    const { apiBase } = this.props
+    const { notes } = this.state
+    const body = JSON.stringify({
+      person_uuid: 'anonymous',
+      notes,
+    })
+    const postApi = `${apiBase}/post`
+    await fetch(postApi, {
+      method: 'POST',
+      body,
+    })
+  }
+
   render() {
     const { playHandler, nowPlaying } = this.props
     const isPlaying = ('--draft--' in nowPlaying)
@@ -73,13 +88,20 @@ class Editor extends React.Component {
     return (
       <div id="editor">
         <div className="post">
-          <div className="icon">
+          <div className="actions">
             <a
-              href="#▶"
-              className="playButton"
               onClick={editorPlayHandler}
+              role="button"
+              tabIndex="0"
             >
               {icon}
+            </a>
+            <a
+              onClick={this.onSaveClick}
+              role="button"
+              tabIndex="0"
+            >
+              <Check />
             </a>
           </div>
           <div className="notes">
@@ -131,7 +153,6 @@ class Editor extends React.Component {
               />
             </div>
           </div>
-          <Check />
         </div>
       </div>
     )
@@ -141,6 +162,7 @@ class Editor extends React.Component {
 Editor.propTypes = {
   playHandler: PropTypes.func.isRequired,
   nowPlaying: PropTypes.objectOf(PropTypes.number).isRequired,
+  apiBase: PropTypes.string.isRequired,
 }
 
 export default Editor

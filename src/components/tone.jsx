@@ -8,7 +8,7 @@ const Tone = ({ isActive, isPlaying, isStart, isEnd, index, clickHandler }) => {
   const endClass = isEnd ? ' end' : ''
   const maybeClasses = `${activeClass}${playingClass}${startClass}${endClass}`
   const className = `tone tone-${index + 1}${maybeClasses}`
-  if (typeof clickHandler === 'undefined') {
+  if (typeof clickHandler !== 'function') {
     return (
       <div className={className} />
     )
@@ -16,9 +16,10 @@ const Tone = ({ isActive, isPlaying, isStart, isEnd, index, clickHandler }) => {
 
   return (
     <a
-      href="#□"
       className={className}
       onClick={event => clickHandler(event, index)}
+      role="button"
+      tabIndex="-1"
     >□</a>
   )
 }
@@ -34,7 +35,10 @@ Tone.propTypes = {
   isStart: PropTypes.bool,
   isEnd: PropTypes.bool,
   index: PropTypes.number.isRequired,
-  clickHandler: PropTypes.func.isRequired,
+  clickHandler: PropTypes.oneOfType(
+    PropTypes.func,
+    PropTypes.bool,
+  ).isRequired,
 }
 
 export default Tone

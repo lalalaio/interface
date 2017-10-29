@@ -7,7 +7,7 @@ const Check = () => (
     version="1.1"
     width="50px"
     height="50px"
-    viewBox="0 0 512 512"
+    viewBox="28 28 452 452"
   >
     <path
       className="primary"

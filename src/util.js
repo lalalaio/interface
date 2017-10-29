@@ -99,42 +99,28 @@ const indexAtOrAfterSum = (numbers, sum) => {
   return index
 }
 
-const notesBeforeBeat = (notes, beat) =>
-  notes.slice(0, indexBeforeSum(notesToBeats(notes), beat))
-
-const notesAfterBeat = (notes, beat) =>
-  notes.slice(indexAtOrAfterSum(notesToBeats(notes), beat))
-
 const restToFillBeats = (beats) => {
   const rests = []
   let beatsToRemove = beats
-  let duration
   while (beatsToRemove > 0) {
-    duration = beatsToDuration(beatsToRemove)
-    rests.push({ note: 'REST', duration })
-    beatsToRemove -= noteBeats[duration]
+    if (beatsToRemove >= 16) {
+      rests.push({ note: 'REST', duration: '1' })
+      beatsToRemove -= 16
+    } else if (beatsToRemove >= 8) {
+      rests.push({ note: 'REST', duration: '1/2' })
+      beatsToRemove -= 8
+    } else if (beatsToRemove >= 4) {
+      rests.push({ note: 'REST', duration: '1/4' })
+      beatsToRemove -= 4
+    } else if (beatsToRemove >= 2) {
+      rests.push({ note: 'REST', duration: '1/8' })
+      beatsToRemove -= 2
+    } else if (beats >= 1) {
+      rests.push({ note: 'REST', duration: '1/16' })
+      beatsToRemove -= 1
+    }
   }
   return rests
-}
-
-const notesBeforeAdd = (notes, beatIndex) => {
-  const beforeNotes = notesBeforeBeat(notes, beatIndex)
-  const neededBeforeBeats = beatIndex - notesBeatSum(beforeNotes)
-  const fillerRestsBefore = restToFillBeats(neededBeforeBeats)
-  return [...beforeNotes, ...fillerRestsBefore]
-}
-
-const notesAfterAdd = (notes, beatIndex, beforeNotes, addNoteBeats) => {
-  const afterNotes = notesAfterBeat(notes, beatIndex + addNoteBeats)
-  const afterBeats = notesBeatSum(afterNotes)
-  if (afterBeats > 0) {
-    const beforeAndNoteBeats = notesBeatSum(beforeNotes) + addNoteBeats
-    const beatsWithoutRestsAfter = beforeAndNoteBeats + afterBeats
-    const neededAfterBeats = notesBeatSum(notes) - beatsWithoutRestsAfter
-    const fillerRestsAfter = restToFillBeats(neededAfterBeats)
-    return [...fillerRestsAfter, ...afterNotes]
-  }
-  return afterNotes
 }
 
 const addNoteToNotes = (notes, addNoteTone, addNoteBeats, beatIndex) => {
@@ -142,9 +128,39 @@ const addNoteToNotes = (notes, addNoteTone, addNoteBeats, beatIndex) => {
     note: addNoteTone,
     duration: beatsToDuration(addNoteBeats),
   }
-  const beforeNotes = notesBeforeAdd(notes, beatIndex)
-  const afterNotes = notesAfterAdd(notes, beatIndex, beforeNotes, addNoteBeats)
-  return [...beforeNotes, note, ...afterNotes]
+  const notesBeats = notesBeatSum(notes)
+  if (beatIndex >= notesBeats) {
+    // If note insert is after notes,
+    // add enough rests to reach beatIndex, then add note
+    return [...notes, ...restToFillBeats(beatIndex - notesBeats), note]
+  }
+  return notes.reduce((result, oldNote) => {
+    const oldNoteBeats = noteBeats[oldNote.duration]
+    const oldNoteEndBeat = result.oldBeats + oldNoteBeats
+    let notesToAdd = []
+    let fillerRests = []
+    if (oldNoteEndBeat <= beatIndex) {
+      // If oldNote ends at or before note starts,
+      // add old note to new notes
+      notesToAdd = [...notesToAdd, oldNote]
+    } else if (result.oldBeats <= beatIndex && oldNoteEndBeat > beatIndex) {
+      // If oldNote overlaps with note start,
+      // add enough rests to reach beatIndex, then add note
+      fillerRests = restToFillBeats(beatIndex - result.newBeats)
+      notesToAdd = [...notesToAdd, ...fillerRests, note]
+    } else if (result.oldBeats >= (beatIndex + addNoteBeats)) {
+      // If oldNote starts after note finishes,
+      // add enough rests to reach oldNote, then add oldNote
+      fillerRests = restToFillBeats(result.oldBeats - result.newBeats)
+      notesToAdd = [...notesToAdd, ...fillerRests, oldNote]
+    }
+    // If oldNote starts within note, add nothing
+    return {
+      oldBeats: result.oldBeats + oldNoteBeats,
+      newBeats: result.newBeats + notesBeatSum(notesToAdd),
+      notes: [...result.notes, ...notesToAdd],
+    }
+  }, { oldBeats: 0, newBeats: 0, notes: [] }).notes
 }
 
 export {
@@ -162,10 +178,6 @@ export {
   notesBeatSum,
   indexBeforeSum,
   indexAtOrAfterSum,
-  notesBeforeBeat,
-  notesAfterBeat,
   restToFillBeats,
-  notesBeforeAdd,
-  notesAfterAdd,
   addNoteToNotes,
 }

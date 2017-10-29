@@ -6,9 +6,10 @@ const NoteControl = ({ beats, active, clickHandler }) => {
   const noteClass = `note note-${beats}${activeClass}`
   return (
     <a
-      href="#&#119137;"
       className={noteClass}
       onClick={event => clickHandler(event, beats)}
+      role="button"
+      tabIndex="0"
     >{beats}</a>
   )
 }

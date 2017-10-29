@@ -91,6 +91,7 @@ class App extends React.Component {
       (<Editor
         playHandler={this.onPlay}
         nowPlaying={this.state.playing}
+        apiBase={apiBase}
       />) : ''
     return (
       <Router>

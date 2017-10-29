@@ -20,8 +20,9 @@ const Note = ({ tone, index, clickHandler }) => {
   toneChart.reverse()
   const toneList = Object.keys(toneChart).map((toneIndex) => {
     const isActive = tone.note === toneChart[toneIndex]
-    const onNoteClick = (event, toneClickIndex) =>
-      clickHandler(event, index, toneClickIndex)
+    const onNoteClick = (clickHandler === false) ? false :
+      (event, toneClickIndex) =>
+        clickHandler(event, index, toneClickIndex)
     return (
       <Tone
         key={parseInt(toneIndex, 10) + 1}
@@ -49,7 +50,10 @@ Note.propTypes = {
     end: PropTypes.bool,
   }).isRequired,
   index: PropTypes.number.isRequired,
-  clickHandler: PropTypes.func.isRequired,
+  clickHandler: PropTypes.oneOfType(
+    PropTypes.func,
+    PropTypes.bool,
+  ).isRequired,
 }
 
 export default Note

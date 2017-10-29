@@ -5,7 +5,7 @@ import Add from '../svg/add.svg'
 const Header = ({ editHandler }) => (
   <div>
     <nav>
-      <a href="#&#43;" onClick={editHandler}>
+      <a onClick={editHandler} role="button" tabIndex="0">
         <Add />
       </a>
     </nav>
