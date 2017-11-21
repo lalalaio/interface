@@ -39,7 +39,12 @@ class App extends React.Component {
   onPlay(event, post) {
     this.setState((prevState) => {
       const nowPlaying = prevState.playing
-      nowPlaying[post.uuid] = 0
+      if (typeof nowPlaying[post.uuid] === 'undefined') {
+        nowPlaying[post.uuid] = 0
+      }
+      else {
+        delete nowPlaying[post.uuid]
+      }
       return { playing: nowPlaying }
     }, () => {
       this.playNotes(post.notes, 0, post)
@@ -59,7 +64,8 @@ class App extends React.Component {
   }
 
   playNotes(notes, index, post) {
-    if (notes.length > 0) {
+    const postPlaying = this.state.playing[post.uuid]
+    if (notes.length > 0 && typeof postPlaying !== 'undefined') {
       const [note, ...remainingNotes] = notes
       const beats = noteBeats[note.duration]
       this.setState((prevState) => {
