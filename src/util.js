@@ -6,6 +6,32 @@ const noteBeats = {
   '1/16': 1,
 }
 
+const colorMap = {
+  0: '#000000',
+  1: '#b80000',
+  2: '#eb9694',
+  3: '#db3e00',
+  4: '#fad0c3',
+  5: '#fccb00',
+  6: '#fef3bd',
+  7: '#008b02',
+  8: '#c1e1c5',
+  9: '#006b76',
+  10: '#bedadc',
+  11: '#004dcf',
+  12: '#bed3f3',
+  13: '#5300eb',
+  14: '#d4c4fb',
+  15: '#525252',
+  16: '#969696',
+  17: '#d9d9d9',
+  18: '#795548',
+  19: '#d7ccc8',
+  20: '#ff00eb',
+  21: '#00ff3b',
+  22: '#cddc39',
+}
+
 const beatsToDuration = (beats) => {
   if (beats > 8) {
     return '1'
@@ -165,6 +191,7 @@ const addNoteToNotes = (notes, addNoteTone, addNoteBeats, beatIndex) => {
 
 export {
   noteBeats,
+  colorMap,
   beatsToDuration,
   allTones,
   barFiller,

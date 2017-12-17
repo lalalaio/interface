@@ -1,12 +1,10 @@
 import React from 'react'
 
+import SVG from './svg'
+
 const Add = () => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
+  <SVG
     className="icon add-icon"
-    version="1.1"
-    width="50"
-    height="50"
     viewBox="0 0 1200 1200"
   >
     <path
@@ -26,7 +24,7 @@ const Add = () => (
         d="M 350 525 L 850 525 L 850 675 L 350 675 Z"
       />
     </mask>
-  </svg>
+  </SVG>
 )
 
 export default Add

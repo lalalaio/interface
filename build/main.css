@@ -25,6 +25,13 @@ a:focus {
   fill: #000;
 }
 
+svg rect.transparent {
+  stroke: #fff;
+  fill: #fff;
+  fill-opacity: 0;
+  stroke-opacity: 0;
+}
+
 ul.posts {
   list-style: none;
   padding-left: 0;
@@ -197,3 +204,36 @@ ul.posts {
 #editor .post .controls .octave-high .high, #editor .post .controls .octave-low .low {
       background: #666;
     }
+
+.identity-form .selector {
+    display: inline-block;
+    position: relative;
+  }
+
+.identity-form .selector .selection {
+      border: #ccc 1px solid;
+      border-radius: 3px;
+      padding: 5px;
+      width: 16px;
+    }
+
+.identity-form .selector .options {
+      background: #fff;
+      border: #ccc 1px solid;
+      border-radius: 3px;
+      padding: 0 0 5px 5px;
+      position: absolute;
+      top: -22px;
+      width: 148px;
+      z-index: 1;
+    }
+
+.identity-form .selector .options * {
+        margin: 5px 5px 0 0;
+      }
+
+.identity-form .color-option {
+    display: inline-block;
+    height: 16px;
+    width: 16px;
+  }

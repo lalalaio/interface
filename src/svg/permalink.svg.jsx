@@ -1,12 +1,10 @@
 import React from 'react'
 
+import SVG from './svg'
+
 const Permalink = () => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
+  <SVG
     className="icon icon-link"
-    version="1.1"
-    width="50"
-    height="50"
     viewBox="0 0 300 300"
   >
     <path
@@ -21,7 +19,7 @@ const Permalink = () => (
       className="primary"
       d="M200.493,90.643c-1.04-1.04-2.425-1.613-3.896-1.613c-1.471,0-2.856,0.573-3.896,1.616l-36.686,36.684 c-2.142,2.147-2.142,5.638,0.003,7.786l1.434,1.432l10.88-10.883l11.002,11.002l-10.88,10.883l1.434,1.434 c2.083,2.077,5.703,2.08,7.786-0.003l36.684-36.681c2.145-2.147,2.145-5.638,0-7.786L200.493,90.643z"
     />
-  </svg>
+  </SVG>
 )
 
 export default Permalink
