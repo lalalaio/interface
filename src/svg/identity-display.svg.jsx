@@ -6,19 +6,19 @@ import ClickableSquare from './clickable-square'
 
 import SVG from './svg'
 
-const IdentityDisplay = ({shapes, foregrounds, clickHandler}) => {
+const IdentityDisplay = ({ shapes, foregrounds, clickHandler }) => {
   const size = 30
   const rows = 3
-  const viewBox = `0 0 ${size*rows} ${size*rows}`
+  const viewBox = `0 0 ${size * rows} ${size * rows}`
   const foregroundList = shapes.map((shape, index) => {
     const x = index % rows
     const y = Math.floor(index / rows)
     return (
       <IdentityDisplayForegroundPart
-        key={index}
+        key={`${x}-${y}`}
         size={size}
-        x={size*x}
-        y={size*y}
+        x={size * x}
+        y={size * y}
         shape={shape}
         foreground={foregrounds[index]}
       />
@@ -29,10 +29,10 @@ const IdentityDisplay = ({shapes, foregrounds, clickHandler}) => {
     const y = Math.floor(index / rows)
     return (
       <ClickableSquare
-        key={index}
+        key={`${x}-${y}`}
         size={size}
-        x={size*x}
-        y={size*y}
+        x={size * x}
+        y={size * y}
         clickHandler={() => { clickHandler(x, y) }}
       />
     )
@@ -53,7 +53,7 @@ const IdentityDisplay = ({shapes, foregrounds, clickHandler}) => {
 IdentityDisplay.propTypes = {
   shapes: PropTypes.arrayOf(PropTypes.number).isRequired,
   foregrounds: PropTypes.arrayOf(PropTypes.number).isRequired,
-  clickHandler: PropTypes.func.isRequired
+  clickHandler: PropTypes.func.isRequired,
 }
 
 export default IdentityDisplay

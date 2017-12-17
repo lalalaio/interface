@@ -2,7 +2,6 @@ import PropTypes from 'prop-types'
 import React from 'react'
 
 import Selector from '../containers/selector'
-import Shape from '../svg/shape.svg'
 import { colorMap } from '../util'
 
 
@@ -11,8 +10,10 @@ const ColorSelector = ({ value, changeHandler }) => {
     <div
       key={colorIndex}
       className="color-option"
-      style={{background: colorMap[colorIndex]}}
+      style={{ background: colorMap[colorIndex] }}
       onClick={() => { clickHandler(colorIndex) }}
+      role="button"
+      tabIndex="0"
     />
   )
   return (

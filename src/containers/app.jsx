@@ -41,8 +41,7 @@ class App extends React.Component {
       const nowPlaying = prevState.playing
       if (typeof nowPlaying[post.uuid] === 'undefined') {
         nowPlaying[post.uuid] = 0
-      }
-      else {
+      } else {
         delete nowPlaying[post.uuid]
       }
       return { playing: nowPlaying }

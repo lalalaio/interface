@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-const ClickableSquare = ({size, x, y, clickHandler}) => (
+const ClickableSquare = ({ size, x, y, clickHandler }) => (
   <rect
     className="transparent"
     x={x}
@@ -16,7 +16,7 @@ ClickableSquare.propTypes = {
   size: PropTypes.number.isRequired,
   x: PropTypes.number.isRequired,
   y: PropTypes.number.isRequired,
-  clickHandler: PropTypes.func.isRequired
+  clickHandler: PropTypes.func.isRequired,
 }
 
 export default ClickableSquare

@@ -32,6 +32,31 @@ const colorMap = {
   22: '#cddc39',
 }
 
+const shapeMap = {
+  0: 'square',
+  1: 'triangle-top-left',
+  2: 'triangle-top-right',
+  3: 'triangle-bottom-right',
+  4: 'triangle-bottom-left',
+  5: 'rectangle-left',
+  6: 'rectangle-top',
+  7: 'rectange-right',
+  8: 'rectangle-bottom',
+  9: 'circle-top-left',
+  10: 'circle-top-right',
+  11: 'circle-bottom-right',
+  12: 'circle-bottom-left',
+  13: 'small-square-top-left',
+  14: 'small-square-top-right',
+  15: 'small-square-bottom-right',
+  16: 'small-square-bottom-left',
+  17: 'plus-top-left',
+  18: 'plus-top-right',
+  19: 'plus-bottom-right',
+  20: 'plus-bottom-left',
+  21: 'circle',
+}
+
 const beatsToDuration = (beats) => {
   if (beats > 8) {
     return '1'
@@ -192,6 +217,7 @@ const addNoteToNotes = (notes, addNoteTone, addNoteBeats, beatIndex) => {
 export {
   noteBeats,
   colorMap,
+  shapeMap,
   beatsToDuration,
   allTones,
   barFiller,

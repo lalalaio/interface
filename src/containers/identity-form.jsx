@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types'
 import React from 'react'
 
 import ColorSelector from '../components/color-selector'
@@ -9,8 +8,8 @@ class IdentityForm extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      shapes: [17,14,15,16,5,4,3,2,1],
-      foregrounds: [0,0,0,0,0,0,0,0,0],
+      shapes: [17, 14, 15, 16, 5, 4, 3, 2, 1],
+      foregrounds: [0, 0, 0, 0, 0, 0, 0, 0, 0],
       shapeValue: 0,
       foregroundValue: 0,
     }
@@ -20,11 +19,11 @@ class IdentityForm extends React.Component {
   }
 
   setForegroundValue(value) {
-    this.setState({ foregroundValue: parseInt(value) })
+    this.setState({ foregroundValue: parseInt(value, 10) })
   }
 
   setShapeValue(value) {
-    this.setState({ shapeValue: parseInt(value) })
+    this.setState({ shapeValue: parseInt(value, 10) })
   }
 
   setDisplayPart(x, y) {
@@ -38,7 +37,7 @@ class IdentityForm extends React.Component {
   }
 
   render() {
-    const {shapes, foregrounds} = this.state
+    const { shapes, foregrounds } = this.state
 
     return (
       <div className="identity-form">
